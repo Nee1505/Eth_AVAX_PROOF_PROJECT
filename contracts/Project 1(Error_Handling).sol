@@ -5,30 +5,28 @@ pragma solidity 0.8.9;
 
 
 contract Error_handling {
-    int public balance=0;
+    string public username="Neelam";
+    string public password="Neelam1505";
     
-    function deposit(int amount) public returns(int) {
-        //The minimum deposit amount is 10 wei
-        require(amount >= 10, "You have to deposit at least 10 wei");
-        balance +=amount;
-        return balance;
+    //require that username is correct
+    function get_name(string memory _name) public view returns(string memory) {
+        require(keccak256(abi.encodePacked(username)) == keccak256(abi.encodePacked(_name)), "Invalid Username");
+        return _name;
     }
 
-    function withdraw(int amount) public returns(int){
-        //The balance must be greater than the withdrawal amount
-        if (balance<amount) {
-            revert("Insufficient balance");
+    //Check that password is correct
+    function get_password(string memory _password)public view returns(string memory){
+        if (keccak256(abi.encodePacked(password)) != keccak256(abi.encodePacked(_password))) {
+            revert("Incorrect Password");
         }
         else{
-           balance -= amount;
-           return balance;
+           return _password;
         }
     }
 
-    function checkBalance() public view returns(int){
-        // Assert that balance is never below zero (should always hold)
-        assert(balance >= 0);
-        return balance;
+    //Assert that none of the fields are empty
+     function check_both_fields() public view {
+        assert(bytes(username).length > 0 && bytes(password).length > 0);
     }
    
 }

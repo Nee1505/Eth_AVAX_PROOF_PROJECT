@@ -1,4 +1,4 @@
-# Create a token
+# Error Handling
 
 In this Solidity program  we create a smart contract to demonstrate the error handling in solidity. This program demonstrates the functionality of require, assert and revert function.
 ## Description
